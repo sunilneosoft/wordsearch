@@ -1,13 +1,13 @@
 
 dictionarywords = {}
 
-File.open("/usr/share/dict/words") do |file|
+File.open("./dictionary.txt") do |file|
   file.each do |line|
-    dictionarywords[line.strip] = true
+    dictionarywords[line.strip.downcase] = true
   end
 end
-
-LETTERS = {
+# p dictionarywords
+letters = {
      "1" => ["1"],
        "2" => ["a", "b", "c"],
        "3" => ["d", "e", "f"],
@@ -19,17 +19,17 @@ LETTERS = {
        "9" => ["w", "x", "y", "z"]
     }
 
-  def start(number, dictionarywords)
+  def start(number, dictionarywords, letters)
     digits = number.to_s.split ''
     # Total number of combinations
-    n = digits.inject(1) { |a,b| a * LETTERS[b].size }
+    n = digits.inject(1) { |a,b| a * letters[b].size }
 
     words = []
     0.upto n-1 do |q|
       word = []
       digits.reverse.each do |digit|
-        q, r = q.divmod LETTERS[digit].size
-        word.unshift LETTERS[digit][r]
+        q, r = q.divmod letters[digit].size
+        word.unshift letters[digit][r]
       end
       words << word.join
     end
@@ -46,8 +46,8 @@ LETTERS = {
         end
       end
     end
-    p hash_value
+    p hash_value.uniq
   end
   p "Please Enter 10 Digit Phone Number ::"
   input = gets.chomp
-  start(input , dictionarywords)
+  start(input , dictionarywords, letters)
