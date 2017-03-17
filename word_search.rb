@@ -1,25 +1,30 @@
 
-dictionarywords = {}
 
-File.open("./dictionary.txt") do |file|
-  file.each do |line|
-    dictionarywords[line.strip.downcase] = true
-  end
-end
-# p dictionarywords
-letters = {
-     "1" => ["1"],
-       "2" => ["a", "b", "c"],
-       "3" => ["d", "e", "f"],
-       "4" => ["g", "h", "i"],
-       "5" => ["j", "k", "l"],
-       "6" => ["m", "n", "o"],
-       "7" => ["p", "q", "r", "s"],
-       "8" => ["t", "u", "v"],
-       "9" => ["w", "x", "y", "z"]
-    }
+  def phonenumber(number=nil)
+    if number.nil?
+      p "Please Enter 10 Digit Phone Number ::"
+      number = gets.chomp
+    end
+    
+    dictionarywords = {}
 
-  def start(number, dictionarywords, letters)
+    File.open("./dictionary.txt") do |file|
+      file.each do |line|
+        dictionarywords[line.strip.downcase] = true
+      end
+    end
+    # p dictionarywords
+    letters = {
+         "1" => ["1"],
+           "2" => ["a", "b", "c"],
+           "3" => ["d", "e", "f"],
+           "4" => ["g", "h", "i"],
+           "5" => ["j", "k", "l"],
+           "6" => ["m", "n", "o"],
+           "7" => ["p", "q", "r", "s"],
+           "8" => ["t", "u", "v"],
+           "9" => ["w", "x", "y", "z"]
+        }
     digits = number.to_s.split ''
     # Total number of combinations
     n = digits.inject(1) { |a,b| a * letters[b].size }
@@ -48,6 +53,4 @@ letters = {
     end
     p hash_value.uniq
   end
-  p "Please Enter 10 Digit Phone Number ::"
-  input = gets.chomp
-  start(input , dictionarywords, letters)
+  
