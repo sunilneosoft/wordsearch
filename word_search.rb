@@ -38,7 +38,7 @@ LETTERS = {
     words.each do |a|
       for n in 2..a.size
         if a[0..n].split('').size >=3 && (dictionarywords[a[0..n]] && dictionarywords[a[(n+1)..a.size]] )
-          if a[(n+1)..a.size].present? && a[(n+1)..a.size].size >= 3
+          if a[(n+1)..a.size] && a[(n+1)..a.size].size >= 3
             hash_value << [a[0..n], a[(n+1)..a.size]]
           end
         elsif a[0..n].split('').size == 10 && dictionarywords[a[0..n]]
