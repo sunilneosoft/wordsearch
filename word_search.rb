@@ -1,9 +1,9 @@
 
-dic_w = {}
+dictionarywords = {}
 
 File.open("/usr/share/dict/words") do |file|
   file.each do |line|
-    dic_w[line.strip] = true
+    dictionarywords[line.strip] = true
   end
 end
 
@@ -19,8 +19,8 @@ LETTERS = {
        "9" => ["w", "x", "y", "z"]
     }
 
-    input = gets.chomp
-    digits = input.to_s.split ''
+  def start(number, dictionarywords)
+    digits = number.to_s.split ''
     # Total number of combinations
     n = digits.inject(1) { |a,b| a * LETTERS[b].size }
 
@@ -37,13 +37,17 @@ LETTERS = {
     hash_value = []
     words.each do |a|
       for n in 2..a.size
-        if a[0..n].split('').size >=3 && (dic_w[a[0..n]] && dic_w[a[(n+1)..a.size]] )
+        if a[0..n].split('').size >=3 && (dictionarywords[a[0..n]] && dictionarywords[a[(n+1)..a.size]] )
           if a[(n+1)..a.size].present? && a[(n+1)..a.size].size >= 3
             hash_value << [a[0..n], a[(n+1)..a.size]]
           end
-        elsif a[0..n].split('').size == 10 && dic_w[a[0..n]]
+        elsif a[0..n].split('').size == 10 && dictionarywords[a[0..n]]
           hash_value << [a[0..n]]
         end
       end
     end
     p hash_value
+  end
+  p "Please Enter 10 Digit Phone Number ::"
+  input = gets.chomp
+  start(input , dictionarywords)
